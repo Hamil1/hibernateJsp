@@ -79,7 +79,7 @@ public class EmployeeDAO {
                 Employee empleado = (Employee) iterator.next();
                 System.out.print("El nombre es: "+ empleado.getFirstName());
                 System.out.print("\nEl Apellido es: "+ empleado.getLastName());
-                System.out.print("\nEl salario es: "+ empleado.getSalary());
+                System.out.print("\nEl salario es: "+ empleado.getSalary()+"\n");
             }
             
             tx.commit();
