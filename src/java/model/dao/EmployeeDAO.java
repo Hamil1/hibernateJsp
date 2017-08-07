@@ -59,7 +59,9 @@ public class EmployeeDAO {
     public static void main(String[] args){
         
         EmployeeDAO ME = new EmployeeDAO();
-        ME.createEmployee();
+        ME.delete();
+//        ME.createEmployee();
+//        ME.getAll();
         
     }
     
@@ -87,6 +89,31 @@ public class EmployeeDAO {
         } catch (Exception ex){
             tx.rollback();
             throw new RuntimeException("Hubo problemas para iniciar la sesion Hibernate");
+        }
+    }
+    
+    public void delete(){
+    
+        SessionFactory sf = null;
+        Session sesion = null;
+        Transaction tx = null;
+        Scanner keyboard = new Scanner(System.in);
+        Integer EmployeeID;
+        System.out.print("Introduzca el ID del empleado que desea borrar");
+        EmployeeID = keyboard.nextInt();
+        
+        try {
+        sf = HibernateUtil.getSessionFactory();
+        sesion = sf.openSession();
+        tx = sesion.beginTransaction();
+        Employee empleado = (Employee) sesion.get(Employee.class, EmployeeID);
+        sesion.delete(empleado);
+        tx.commit();
+        } catch (HibernateException e) {
+            tx.rollback();
+            e.printStackTrace();
+        }finally{
+            sesion.close();
         }
     }
     
